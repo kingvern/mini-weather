@@ -41,7 +41,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private ImageView mUpdateBtn;
     private TextView cityTv, timeTv, humidityTv, weekTv, pmDataTv, pmQualityTv,
             temperatureTv, temperatureNowTv, climateTv, windTv, city_name_Tv;
-    private ImageView weatherImg, pmImg;
+    private ImageView weatherImg, pmImg,mCitySelect;
 
     private Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
@@ -73,6 +73,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
             Log.d("myWeather", "网络挂了");
             Toast.makeText(MainActivity.this,"网络挂了!", Toast.LENGTH_LONG).show();
         }
+
+        mCitySelect=(ImageView)findViewById(R.id.title_city_manager);
+        mCitySelect.setOnClickListener(this);
 
         initView();
 
@@ -110,6 +113,11 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
+        if (view.getId() == R.id.title_city_manager){
+            Intent i = new Intent(this,SelectCity.class);
+            startActivityForResult(i,1);
+            // startActivity(i);
+        }
 
         if (view.getId() == R.id.title_update_btn){
 
@@ -128,11 +136,28 @@ public class MainActivity extends Activity implements View.OnClickListener{
             }
         }
     }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            String newCityCode= data.getStringExtra("cityCode");
+            Log.d("myWeather", "选择的城市代码为"+newCityCode);
+
+            if (NetUtil.getNetworkState(this) != NetUtil.NETWORN_NONE) {
+                Log.d("myWeather", "网络OK");
+                queryWeatherCode(newCityCode);
+            } else {
+                Log.d("myWeather", "网络挂了");
+                Toast.makeText(MainActivity.this, "网络挂了！", Toast.LENGTH_LONG).show();
+            }
+
+        }
+    }
     void updateTodayWeather(TodayWeather todayWeather){
         city_name_Tv.setText(todayWeather.getCity()+"天气");
         cityTv.setText(todayWeather.getCity());
         timeTv.setText(todayWeather.getUpdatetime()+ "发布");
         humidityTv.setText("湿度："+todayWeather.getShidu());
+
+        
 
         pmDataTv.setText(todayWeather.getPm25());
         pmQualityTv.setText(todayWeather.getQuality());
@@ -140,8 +165,13 @@ public class MainActivity extends Activity implements View.OnClickListener{
         temperatureTv.setText(todayWeather.getHigh()+"~"+todayWeather.getLow());
         temperatureNowTv.setText("温度："+todayWeather.getWendu()+"℃");
         climateTv.setText(todayWeather.getType());
+
         windTv.setText("风力:"+todayWeather.getFengli());
+
+
+
         Toast.makeText(MainActivity.this,"更新成功！",Toast.LENGTH_SHORT).show();
+
 
     }
 
@@ -277,4 +307,5 @@ public class MainActivity extends Activity implements View.OnClickListener{
         }
         return todayWeather;
     }
+
 }
