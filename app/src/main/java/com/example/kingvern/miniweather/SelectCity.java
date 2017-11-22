@@ -45,10 +45,10 @@ public class SelectCity extends Activity implements View.OnClickListener{
         MyApplication myApplication = (MyApplication) getApplication();
         cityList = myApplication.getCityList();
 
-        List<Map<String, Object>> listems = new ArrayList<Map<String, Object>>();
+        final List<Map<String, String>> listems = new ArrayList<Map<String, String>>();
 
         for(City city : cityList){
-            Map<String, Object> listem = new HashMap<String, Object>();
+            Map<String, String> listem = new HashMap<String, String>();
             listem.put("city",city.getCity());
             listem.put("number",city.getNumber());
             listems.add(listem);
@@ -59,8 +59,12 @@ public class SelectCity extends Activity implements View.OnClickListener{
         mlist.setAdapter(simplead);
         mlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(SelectCity.this,"你单击了："+i,Toast.LENGTH_SHORT).show();
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                Map<String, String> map = listems.get(pos);
+                Intent i = new Intent();
+                i.putExtra("cityCode",map.get("number"));
+                setResult(RESULT_OK,i);
+                finish();
             }
         });
 
