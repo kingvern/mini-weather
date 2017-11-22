@@ -41,28 +41,28 @@ public class SelectCity extends Activity implements View.OnClickListener{
 
         mBackBtn=(ImageView)findViewById(R.id.title_back);
         mBackBtn.setOnClickListener(this);
-//        mlist = (ListView) findViewById(R.id.city_list);
-//        MyApplication myApplication = (MyApplication) getApplication();
-//        cityList = myApplication.getCityList();
-//
-//        List<Map<String, Object>> listems = new ArrayList<Map<String, Object>>();
-//
-//        for(City city : cityList){
-//            Map<String, Object> listem = new HashMap<String, Object>();
-//            listem.put("city",city.getCity());
-//            listem.put("number",city.getNumber());
-//            listems.add(listem);
-//        }
-//        SimpleAdapter simplead = new SimpleAdapter(this, listems,
-//                R.id.city_list, new String[] { "city", "number"},
-//                new int[] {R.id.list_city,R.id.list_number,});
-//        mlist.setAdapter(simplead);
-//        mlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Toast.makeText(SelectCity.this,"你单击了："+i,Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        mlist = (ListView) findViewById(R.id.city_list);
+        MyApplication myApplication = (MyApplication) getApplication();
+        cityList = myApplication.getCityList();
+
+        List<Map<String, Object>> listems = new ArrayList<Map<String, Object>>();
+
+        for(City city : cityList){
+            Map<String, Object> listem = new HashMap<String, Object>();
+            listem.put("city",city.getCity());
+            listem.put("number",city.getNumber());
+            listems.add(listem);
+        }
+        SimpleAdapter simplead = new SimpleAdapter(this, listems,
+                R.layout.item, new String[] { "city", "number"},
+                new int[] {R.id.list_city,R.id.list_number,});
+        mlist.setAdapter(simplead);
+        mlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(SelectCity.this,"你单击了："+i,Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
