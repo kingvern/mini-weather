@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -27,9 +29,10 @@ import cn.edu.pku.kingvern.bean.City;
 
 public class SelectCity extends Activity implements View.OnClickListener{
 
-    private ImageView mBackBtn;
+    private ImageView mBackBtn,mSearchBtn;
     private ListView mlist;
     private List<City> cityList;
+    private ClearEditText mClearEditText;
 
 
     @Override
@@ -41,6 +44,33 @@ public class SelectCity extends Activity implements View.OnClickListener{
 
         mBackBtn=(ImageView)findViewById(R.id.title_back);
         mBackBtn.setOnClickListener(this);
+
+        mClearEditText = (ClearEditText)findViewById(R.id.title_search);
+
+        mClearEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int i, int i1, int i2) {
+                filterData(s.toString());
+//                mlist.setAdapter(simplead);
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+
+
+//        mSearchBtn = (ImageView)findViewById(R.id.title_search_btn);
+//        mSearchBtn.setOnClickListener(this);
+
         mlist = (ListView) findViewById(R.id.city_list);
         MyApplication myApplication = (MyApplication) getApplication();
         cityList = myApplication.getCityList();
@@ -69,6 +99,9 @@ public class SelectCity extends Activity implements View.OnClickListener{
         });
 
     }
+    private void filterData(String s){
+
+    }
 
     @Override
     public void onClick(View view) {
@@ -79,6 +112,9 @@ public class SelectCity extends Activity implements View.OnClickListener{
                 setResult(RESULT_OK,i);
                 finish();
                 break;
+//            case R.id.title_search_btn:
+//
+//                break;
             default:
                 break;
         }

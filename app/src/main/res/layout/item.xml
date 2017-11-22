@@ -10,13 +10,13 @@
         android:id="@+id/list_city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#000"
+        android:textColor="#fff"
         android:textSize="20.0sp" />
         <TextView
         android:id="@+id/list_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#000"
+        android:textColor="#fff"
         android:textSize="15.0sp" />
         </LinearLayout>
     </LinearLayout>
