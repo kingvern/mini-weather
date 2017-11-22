@@ -26,5 +26,4 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:26.+'
     testCompile 'junit:junit:4.12'
-    compile files('libs/pinyin4j-2.5.0.jar')
 }
