@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -32,7 +34,11 @@ public class SelectCity extends Activity implements View.OnClickListener{
     private ImageView mBackBtn,mSearchBtn;
     private ListView mlist;
     private List<City> cityList;
+    private ArrayList<City> filterDataList;
     private ClearEditText mClearEditText;
+    SimpleAdapter simplead;
+    List<Map<String, String>> listems;
+
 
 
     @Override
@@ -75,7 +81,7 @@ public class SelectCity extends Activity implements View.OnClickListener{
         MyApplication myApplication = (MyApplication) getApplication();
         cityList = myApplication.getCityList();
 
-        final List<Map<String, String>> listems = new ArrayList<Map<String, String>>();
+        listems = new ArrayList<Map<String, String>>();
 
         for(City city : cityList){
             Map<String, String> listem = new HashMap<String, String>();
@@ -83,7 +89,7 @@ public class SelectCity extends Activity implements View.OnClickListener{
             listem.put("number",city.getNumber());
             listems.add(listem);
         }
-        SimpleAdapter simplead = new SimpleAdapter(this, listems,
+        simplead = new SimpleAdapter(this, listems,
                 R.layout.item, new String[] { "city", "number"},
                 new int[] {R.id.list_city,R.id.list_number,});
         mlist.setAdapter(simplead);
@@ -99,7 +105,44 @@ public class SelectCity extends Activity implements View.OnClickListener{
         });
 
     }
-    private void filterData(String s){
+
+
+    private void filterData(String fileterStr){
+        filterDataList = new ArrayList<City>();
+        listems.clear();
+        Log.d("filterData: ", "filterData: "+fileterStr);
+        if(TextUtils.isEmpty(fileterStr) || fileterStr.equals("")){
+            for(City city : cityList){
+//                filterDataList.add(city); 大兴
+                Map<String, String> listem = new HashMap<String, String>();
+                listem.put("city",city.getCity());
+                listem.put("number",city.getNumber());
+                listems.add(listem);
+            }
+        }else{
+            for(City city : cityList){
+                Map<String, String> listem = new HashMap<String, String>();
+                if(city.getCity().indexOf(fileterStr.toString())!=-1){
+                listem.put("city",city.getCity());
+                listem.put("number",city.getNumber());
+                listems.add(listem);
+                }
+            }
+            simplead.notifyDataSetChanged();
+
+            //            simplead.
+
+//            filterDataList.clear();
+//            for(City city : cityList){
+//                if(city.getCity().indexOf(fileterStr.toString())!=-1)
+//                filterDataList.add(city);
+//            }
+        }
+
+
+//        myadapt.updateListView(filterDataList);
+
+
 
     }
 

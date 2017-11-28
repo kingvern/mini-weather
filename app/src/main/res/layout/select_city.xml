@@ -40,9 +40,8 @@
             android:layout_below="@id/title"
             android:textColor="#fff"
             android:hint="搜索全国城市"
-            android:textColorHint="#ffcccccc"
-            android:drawableLeft="@drawable/magnifying_glass"
-            android:background="@drawable/contact_search_box_edittext_keyword_background"/>
+            android:lines="1"
+            android:textColorHint="#ffcccccc"/>
 
 
     <RelativeLayout
