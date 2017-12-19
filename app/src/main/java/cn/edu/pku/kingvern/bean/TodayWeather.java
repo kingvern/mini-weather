@@ -17,6 +17,62 @@ public class TodayWeather {
     private String high;
     private String low;
     private String type;
+    private String[] ffengxiang;
+    private String[] ffengli;
+    private String[] fdate;
+    private String[] fhigh;
+    private String[] flow;
+    private String[] ftype;
+
+    public void setFfengxiang(String[] ffengxiang) {
+        this.ffengxiang = ffengxiang;
+    }
+
+    public void setFfengli(String[] ffengli) {
+        this.ffengli = ffengli;
+    }
+
+    public void setFdate(String[] fdate) {
+        this.fdate = fdate;
+    }
+
+    public void setFhigh(String[] fhigh) {
+        this.fhigh = fhigh;
+    }
+
+    public void setFlow(String[] flow) {
+        this.flow = flow;
+    }
+
+    public void setFtype(String[] ftype) {
+        this.ftype = ftype;
+    }
+
+    public String[] getFfengxiang() {
+
+        return ffengxiang;
+    }
+
+    public String[] getFfengli() {
+        return ffengli;
+    }
+
+    public String[] getFdate() {
+        return fdate;
+    }
+
+    public String[] getFhigh() {
+        return fhigh;
+    }
+
+    public String[] getFlow() {
+        return flow;
+    }
+
+    public String[] getFtype() {
+        return ftype;
+    }
+
 
     public String getCity() {
         return city;
@@ -129,6 +185,9 @@ public class TodayWeather {
                 ", high='" + high + '\'' +
                 ", low='" + low + '\'' +
                 ", type='" + type + '\'' +
+                ", type='" + ftype[0] + '\'' +
+                ", type='" + fdate[0] + '\'' +
+                ", type='" + fhigh[0] + '\'' +
                 '}';
     }
 }

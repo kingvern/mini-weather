@@ -1,4 +1,4 @@
-package com.example.kingvern.miniweather;
+package cn.edu.pku.kingvern.miniweather;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+
 
 /**
  * Created by kingvern on 17/11/22.

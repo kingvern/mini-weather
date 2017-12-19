@@ -33,7 +33,7 @@
             android:gravity="center" />
     </RelativeLayout>
 
-        <com.example.kingvern.miniweather.ClearEditText
+        <cn.edu.pku.kingvern.miniweather.ClearEditText
             android:id="@+id/title_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

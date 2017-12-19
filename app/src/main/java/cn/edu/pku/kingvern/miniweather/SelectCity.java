@@ -1,9 +1,8 @@
-package com.example.kingvern.miniweather;
+package cn.edu.pku.kingvern.miniweather;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -11,11 +10,10 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,6 +22,9 @@ import java.util.Map;
 
 import cn.edu.pku.kingvern.app.MyApplication;
 import cn.edu.pku.kingvern.bean.City;
+import cn.edu.pku.kingvern.miniweather.ClearEditText;
+
+import static cn.edu.pku.kingvern.miniweather.MainActivity.cityCode;
 
 /**
  * Created by kingvern on 10/18/17.
@@ -151,7 +152,7 @@ public class SelectCity extends Activity implements View.OnClickListener{
         switch (view.getId()){
             case R.id.title_back:
                 Intent i=new Intent();
-                i.putExtra("cityCode","101160101");
+                i.putExtra("cityCode",cityCode);
                 setResult(RESULT_OK,i);
                 finish();
                 break;

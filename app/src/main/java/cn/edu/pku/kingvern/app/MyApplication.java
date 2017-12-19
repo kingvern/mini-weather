@@ -15,6 +15,7 @@ import cn.edu.pku.kingvern.bean.City;
 import cn.edu.pku.kingvern.db.CityDB;
 
 /**
+<<<<<<< HEAD
  * Created by kingvern on 17/11/22.
  */
 
@@ -26,15 +27,18 @@ public class MyApplication extends Application{
 
     private List<City> mCityList;
 
+
     @Override
     public void onCreate() {
         super.onCreate();
         Log.d(TAG,"MyApplication->Oncreate");
 
         mApplication = this;
+
         mCityDB = openCityDB();
         initCityList();
     }
+
 
     public static MyApplication getInstance(){
         return mApplication;
@@ -43,7 +47,7 @@ public class MyApplication extends Application{
     private CityDB openCityDB() {
         String path = "/data"
                 + Environment.getDataDirectory().getAbsolutePath()
-                + File.separator + getPackageName()
+                                            + File.separator + getPackageName()
                 + File.separator + "databases1"
                 + File.separator
                 + CityDB.CITY_DB_NAME;
@@ -80,7 +84,10 @@ public class MyApplication extends Application{
         return new CityDB(this, path);
     }
 
+
     private void initCityList() {
+
+
         mCityList = new ArrayList<City>();
         new Thread(new Runnable() {
             @Override
@@ -90,6 +97,7 @@ public class MyApplication extends Application{
             }
         }).start();
     }
+
 
         private boolean prepareCityList(){
             mCityList = mCityDB.getAllCity();
@@ -108,6 +116,5 @@ public class MyApplication extends Application{
             return mCityList;
         }
     }
-
 
 

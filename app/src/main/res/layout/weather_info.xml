@@ -239,6 +239,21 @@
         </RelativeLayout>
     </RelativeLayout>
         <!-- 六日天气信息 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_horizontal">
+
+            <cn.edu.pku.kingvern.miniweather.HorizontalListView
+                android:id="@+id/weather_future_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+        </LinearLayout>
+
         <!-- 广告等信息 -->
     </LinearLayout>
 </RelativeLayout>
