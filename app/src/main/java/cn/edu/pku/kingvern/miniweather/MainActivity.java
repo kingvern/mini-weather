@@ -3,10 +3,10 @@ package cn.edu.pku.kingvern.miniweather;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.ArraySet;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -30,7 +30,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.edu.pku.kingvern.bean.FutureWeather;
 import cn.edu.pku.kingvern.bean.TodayWeather;
 import cn.edu.pku.kingvern.util.NetUtil;
 
@@ -51,6 +50,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private TextView cityTv, timeTv, humidityTv, weekTv, pmDataTv, pmQualityTv,
             temperatureTv, temperatureNowTv, climateTv, windTv, city_name_Tv;
     private ImageView weatherImg, pmImg,mCitySelect;
+
+    private boolean isRunning = false;
 
     private HorizontalListView mlist;
 
@@ -118,6 +119,12 @@ public class MainActivity extends Activity implements View.OnClickListener{
             Log.d("myWeather", "网络挂了");
             Toast.makeText(MainActivity.this,"网络挂了！",Toast.LENGTH_LONG).show();
         }
+
+        startService(new Intent(this,WeatherService.class));
+        isRunning = true;
+        TimeTickLoad timetick = new TimeTickLoad();
+        timetick.execute();
+
 
     }//onCreate END
 
@@ -349,8 +356,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
                             } else if (xmlPullParser.getName().equals("fengli") && fengliCount == 0) {//
                                 eventType = xmlPullParser.next();
                                 todayWeather.setFengli(xmlPullParser.getText());
+
                                 fengliCount++;
-                            } else if (xmlPullParser.getName().equalsIgnoreCase("date") && xmlPullParser.getName()!=null) {//
+                            } else if (xmlPullParser.getName().contains("date") ) {//
                                 eventType = xmlPullParser.next();
 //                                fdate[dateCount]=xmlPullParser.getText();
                                 Log.d("date", xmlPullParser.getName()+"|||"+dateCount+": "+xmlPullParser.getText());
@@ -384,6 +392,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
                                 ffengli[fengliCount-1]=xmlPullParser.getText();
                                 fengliCount++;
                             } else if (xmlPullParser.getName().equals("high") ) {
+                                Log.d("high", xmlPullParser.getName()+"|||"+dateCount+": "+xmlPullParser.getText());
+//
                                 eventType = xmlPullParser.next();
                                 fhigh[highCount]=xmlPullParser.getText().substring(2).trim();
                                 highCount++;
@@ -420,6 +430,40 @@ public class MainActivity extends Activity implements View.OnClickListener{
         todayWeather.setFtype(ftype);
 
         return todayWeather;
+    }
+
+
+    private class TimeTickLoad extends AsyncTask {
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            while (isRunning){
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onProgressUpdate(Object[] values) {
+            super.onProgressUpdate(values);
+
+            queryWeatherCode(cityCode);
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+        }
     }
 
 }
