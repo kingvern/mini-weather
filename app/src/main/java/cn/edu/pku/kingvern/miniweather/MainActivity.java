@@ -432,6 +432,14 @@ public class MainActivity extends Activity implements View.OnClickListener{
         return todayWeather;
     }
 
+    public void onBroadcastIntent() {
+        Intent intent = new Intent();
+        intent.setAction((String) temperatureNowTv.getText());
+        sendBroadcast(intent);
+    }
+
+
+
 
     private class TimeTickLoad extends AsyncTask {
         @Override
@@ -458,6 +466,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
             super.onProgressUpdate(values);
 
             queryWeatherCode(cityCode);
+            onBroadcastIntent();
         }
 
         @Override
@@ -465,5 +474,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
             super.onPostExecute(o);
         }
     }
+
 
 }
